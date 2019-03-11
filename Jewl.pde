@@ -3,8 +3,9 @@ public class Jewl {
    private String[] arrayOfJewls;
    //no getter or setter is created for the arrayIndex as it is an internal field that repesents the index in the arrayOfJewls array
     private int arrayIndex;
+    private int jewlIndex;
     private String jewlType;
-    private String jewlColor;
+    private int[] jewlColor;
     private int xCoord;
     private int yCoord;
    
@@ -12,7 +13,7 @@ public class Jewl {
     public Jewl() {     
       setArrayOfJewls();
       setJewlType();
-      setColor(this.jewlType);
+      setJewlColor(jewlType);
     }
 
     
@@ -40,47 +41,62 @@ public class Jewl {
         
   }
 
-    public String getColor() {
+    public int[] getJewlColor() {
         return jewlColor;
     }
 
-    public void setColor(String jewlType) {
-      
+    public void setJewlColor(String jewlType) {
+      this.jewlColor = new int[3];
       if(jewlType.equals("circle"))
       {
-        this.jewlColor = "red";
+        this.jewlColor[0] = 255;
+        this.jewlColor[1] = 0;
+        this.jewlColor[2] = 0;
       }
       if(jewlType.equals("oval"))
       {
-        this.jewlColor = "blue";
+        this.jewlColor[0]=0;
+        this.jewlColor[1]=0;
+        this.jewlColor[2]=255;
       }
       if(jewlType.equals("square"))
       {
-        this.jewlColor = "green";
+        this.jewlColor[0]=0;
+        this.jewlColor[1]=255;
+        this.jewlColor[2]=0;
       }
       if(jewlType.equals("triangle"))
       {
-        this.jewlColor = "yellow";
+        this.jewlColor[0]=255;
+        this.jewlColor[1]=255;
+        this.jewlColor[2]=0;
       }
     }
 
-//    public int getxCoord() {
-//        return xCoord;
-//    }
+    public int getXCoord() {
+        return xCoord;
+    }
 
-//    public void setxCoord(int xCoord) {
-//        this.xCoord = xCoord;
-//    }
+    public void setXCoord(int xCoord) {
+        this.xCoord = xCoord;
+    }
 
-//    public int getyCoord() {
-//        return yCoord;
-//    }
+    public int getYCoord() {
+        return yCoord;
+   }
 
-//    public void setyCoord(int yCoord) {
-//        this.yCoord = yCoord;
-//    }
+    public void setYCoord(int yCoord) {
+        this.yCoord = yCoord;
+    }
+    
+    public int getJewlIndex(){
+      return jewlIndex;
+    }
+    public void setJewlIndex(int jewlIndex){
+      this.jewlIndex = jewlIndex;
+    }
 
 public String toString(){
-    return "Jewl Type:" + this.jewlType + " , Jewl Color: "+ this.jewlColor;
+    return "Jewl Type:" + this.jewlType + " , Jewl Color: "+ this.jewlColor+ ", X Coord: "+this.xCoord +" , Y Coord: "+this.yCoord;
   }
 }
