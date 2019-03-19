@@ -8,16 +8,27 @@ public class Jewl {
     private int[] jewlColor;
     private int xCoord;
     private int yCoord;
-   
+    private boolean blank;
 
     public Jewl() {     
       setArrayOfJewls();
       setJewlType();
       setJewlColor(jewlType);
+      setBlank(false);
     }
 
-    
-
+    public void setBlank(boolean blank)
+    {
+      this.blank = blank;
+      if (blank == true)
+      {
+        setJewlType("blank");
+      }
+    }
+    public boolean getBlank()
+    {
+      return blank;
+    }
     public void setArrayOfJewls() {
           this.arrayOfJewls = new String[4];          
           this.arrayOfJewls[0]="circle";
@@ -39,7 +50,11 @@ public class Jewl {
         this.arrayIndex = int(random(4));
         this.jewlType = arrayOfJewls[arrayIndex];
         
-  }
+    }
+
+   public void setJewlType(String blank){
+     this.jewlType = "blank";
+   }
 
     public int[] getJewlColor() {
         return jewlColor;
@@ -53,19 +68,19 @@ public class Jewl {
         this.jewlColor[1] = 0;
         this.jewlColor[2] = 0;
       }
-      if(jewlType.equals("oval"))
+      else if(jewlType.equals("oval"))
       {
         this.jewlColor[0]=0;
         this.jewlColor[1]=0;
         this.jewlColor[2]=255;
       }
-      if(jewlType.equals("square"))
+      else if(jewlType.equals("square"))
       {
         this.jewlColor[0]=0;
         this.jewlColor[1]=255;
         this.jewlColor[2]=0;
       }
-      if(jewlType.equals("triangle"))
+      else if(jewlType.equals("triangle"))
       {
         this.jewlColor[0]=255;
         this.jewlColor[1]=255;
