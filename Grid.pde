@@ -1,73 +1,95 @@
+// Grid class stores an array of Jewls and displays them on a grid
 public class Grid {
-
+  // array to store jewls
   private Jewl[] gridOfJewls;
-  //no getter or setter is created for the arrayIndex as it is an internal field that repesents the index in the arrayOfJewls array
+  //internal field that repesents the index in the arrayOfJewls array
   private int arrayIndex;
+  // size of the array
   private int arraySize;
-
-  private int xCoord;
-  private int yCoord;
+  // number of triangles displayed on the grid
+  private int numOfTri;
+  // number of circles displayed on the grid
+  private int numOfCirc;
+  // number of squares displayed on the grid
+  private int numOfSqr;
+  //number if ovals displayed on the grid
+  private int numOfOval;
+  // width/height of the squares on the grid
   private int squareDimension;
-  private int findXCoord;
-  private int findYCoord;
-
 
   //if the user presses the cancel button on the difficulty level jOption pane use default settings
-  public Grid() {  
+  public Grid() {
+    // set the dimension of the squares using the default setter
     setSquareDimension();
+    // set the size of the array using the default size
     setArraySize();
+    // set the array of jewls
     setGridOfJewls();
+    // display the grid
     gridDisplay();
   }
-  // if the user selects a difficulty level 
+  // if the user selects a difficulty level create a grid using the level  
   public Grid(int level)
   {
+    // set the dimension of the squares depending on the difficulty level
     setSquareDimension(level);
+    // set the size of the array depending on the difficulty level
     setArraySize(level);
+    // set the array of jewls
     setGridOfJewls();
+    // display the grid
     gridDisplay();
   }
 
+  // getter method to set the width/height of the squares on the grid 
   public int getSquareDimension() {
     return squareDimension;
   }
-  //default dimensions
+  
+  // default setter method sets the width/height dimension of the squares on the grid
   public void setSquareDimension()
   {
     this.squareDimension = 50;
   }
-  //user input dimensions set depending on difficulty level
+  
+  // setter method where the square dimensions were decided by the difficulty level
   public void setSquareDimension(int sqrDim) {
     this.squareDimension = sqrDim;
   }
 
+  // getter method to get the size of the array
   public int getArraySize() {
     return arraySize;
   }
-  // default array size
+  
+  // default setter method to set the array size
   public void setArraySize() {
     this.arraySize = (width/getSquareDimension())*(height/getSquareDimension());
   }
-  // array size set depending on the difficulty level inputted by user 
+  
+  // setter method to set the array size depending on the difficulty level inputted by user 
   public void setArraySize(int squareDimension) {
     this.arraySize = (width/squareDimension) * (height/squareDimension);
   }
 
-  // returns the object array which holds the jewl objects
+  // getter method to return the array which holds the jewl objects
   public Jewl[] getGridOfJewls() {
     return gridOfJewls;
   }
 
-  /* inintial setup of the array of jewls. a jewl is created for every array index and added
-   to the array */
+  /* setter method to set the jewls in the array. a jewl is created for every array 
+  index and added to the array */
   public void setGridOfJewls() {
-
-    this.gridOfJewls = new Jewl[arraySize];   
+    // create an array to store the jewls
+    this.gridOfJewls = new Jewl[arraySize];
+    // for every index in the array create a jewl for it
     for (arrayIndex = 0; arrayIndex < arraySize; arrayIndex++)
     {
+      // create a jewl
       Jewl singleJewl = new Jewl();
 
-      // the 1st 2 jewls can be the same after that no 3 jewls of the same type can be beside each other in a row or a column
+      /* the 1st 2 jewls in the array can be the same after that no 3 jewls of the same 
+      type can be beside each other in a row or a column */
       if (arrayIndex>=2)
       {
         //this jewl should not be the same as the two jewls to the left of this jewl 
@@ -77,7 +99,8 @@ public class Grid {
         {
           singleJewl=new Jewl();
         }
-        // if the array index is greater than the 1st jewl on the second row (this will prevent an out of bounds error when doing checks in the while loop)
+        /* if the array index is greater than the 1st jewl on the second row 
+        (this will prevent an out of bounds error when doing checks in the while loop) */
         if (arrayIndex >= (width/squareDimension)*2)
         {
           //this jewl should not be the same as the previous 2 jewls to the two 2 jewls above
@@ -89,8 +112,32 @@ public class Grid {
           }
         }
       }
+      // add the jewl to the array 
       this.gridOfJewls[arrayIndex] = singleJewl;
+      // set the array index of jewl in the jewl object
       singleJewl.setJewlIndex(arrayIndex);
+      // get the type of the jewl
+      String type = singleJewl.getJewlType();
+      // if the type is triangle add 1 to the total count of triangles
+      if (type.equals("triangle"))
+      {
+        this.numOfTri++;
+      }
+      // if the type is circle add 1 to the total count of circles
+      if (type.equals("circle"))
+      {
+        this.numOfCirc++;
+      }
+      // if the type is oval add 1 to the total count of ovals
+      if (type.equals("oval"))
+      {
+        this.numOfOval++;
+      }
+      // if the type is square add 1 to the total count of squares
+      if (type.equals("square"))
+      {
+        this.numOfSqr++;
+      }
     }
   }
 
@@ -131,7 +178,7 @@ public class Grid {
 
   // displays the grid, drawing the lines and a shape for each jewl in the array
   public void gridDisplay() {
-
+    background(0);
     //for loop to display the lines on the grid creating a square effect    
     for (int xCoord = squareDimension; xCoord < width; xCoord += squareDimension) {
       stroke(100);
@@ -208,15 +255,14 @@ public class Grid {
 
         checkJewl = gridOfJewls[arrayInd];
         jewlType = checkJewl.getJewlType();
-        
-        if(checkJewl.getBlank())
+
+        if (checkJewl.getBlank())
         {
           checkLeft = false;
           checkRight = false;
           checkUp=false;
           checkDown=false;
-        }
-        else if (xCoord == 0)
+        } else if (xCoord == 0)
         {
           checkLeft = false;
         } else
@@ -279,13 +325,13 @@ public class Grid {
           {
             match[arrayInd] = true;
             match[arrayInd - (height/squareDimension)] =  true;
-            match[arrayInd + (height/squareDimension)] =  true; 
+            match[arrayInd + (height/squareDimension)] =  true;
           }
         }
         arrayInd++;
       }
     }
-     removeMatchedFromGrid(match);
+    removeMatchedFromGrid(match);
   }
 
   public void removeMatchedFromGrid(boolean[] match)
@@ -296,6 +342,24 @@ public class Grid {
 
       if (clear)
       {
+        String type = gridOfJewls[matchIndex].getJewlType();
+        if (type.equals("triangle"))
+        {
+          this.numOfTri--;
+        }
+        if (type.equals("circle"))
+        {
+          this.numOfCirc--;
+        }
+        if (type.equals("oval"))
+        {
+          this.numOfOval--;
+        }
+        if (type.equals("square"))
+        {
+          this.numOfSqr--;
+        }
+
         gridOfJewls[matchIndex].setBlank(true);
         match[matchIndex] = false;
         background(0);
@@ -303,21 +367,30 @@ public class Grid {
       }
     }
   }
-  
+
   public int getScore()
   {
     int score = 0;
-    for(int index = 0; index<gridOfJewls.length; index++)
+    for (int index = 0; index<gridOfJewls.length; index++)
     {
-      if(gridOfJewls[index].getBlank())
+      if (gridOfJewls[index].getBlank())
       {
-        score ++; 
+        score ++;
       }
     }
     return score;
   }
-  
-public String toString() {
-  return "Square Width: "+squareDimension +"Array Size: "+arraySize+" XCoord:  "+mouseX;
-}
+
+  public boolean areMoreMoves()
+  {
+    if (numOfTri < 3 && numOfCirc < 3 && numOfSqr < 3 && numOfOval < 3)
+    {
+      return false;
+    }
+    return true;
+  }
+
+  public String toString() {
+    return "Square Width: "+squareDimension +"Array Size: "+arraySize+" XCoord:  "+mouseX;
+  }
 }

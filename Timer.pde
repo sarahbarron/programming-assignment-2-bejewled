@@ -19,7 +19,9 @@ class Timer{
    return(timer);
  }
  
- // updates the count down timer
+// updates the count down timer
+//the frameRate is run x amount of times every second 
+// this decreases the timer by 1/frameRate each time.
  public void countDownTimer()
  {
    timer -= 1/frameRate;
